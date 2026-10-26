@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Workspace</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
+        #nav { height: 50px; background: #333; display: flex; align-items: center; padding: 0 10px; }
+        #url-bar { flex: 1; padding: 8px; border: none; border-radius: 4px; font-size: 16px; }
+        #go-btn { padding: 8px 15px; margin-left: 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        #frame { width: 100%; height: calc(100% - 50px); border: none; }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <input type="text" id="url-bar" placeholder="Enter full URL (e.g., https://example.com)">
+        <button id="go-btn" onclick="browseSite()">Go</button>
+    </div>
+    <!-- The iframe acts as the browser screen inside your page -->
+    <iframe id="frame" src="about:blank"></iframe>
+
+    <script>
+        function browseSite() {
+            let targetUrl = document.getElementById('url-bar').value.trim();
+            if (!targetUrl.startsWith('http')) {
+                targetUrl = 'https://' + targetUrl;
+            }
+            
+            // This routes the requested site through a free cors-proxy gateway
+            // It strips away the school's blocking cookies
+            const proxyGateway = "https://allorigins.win";
+            
+            document.getElementById('frame').src = proxyGateway + encodeURIComponent(targetUrl);
+        }
+    </script>
+</body>
+</html>
